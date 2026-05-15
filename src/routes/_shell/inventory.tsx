@@ -64,8 +64,7 @@ function InventoryPage() {
             { key: "minStock", header: "Min" },
             { key: "expires", header: "Expires", render: (r) => <span className="font-mono text-xs">{r.expires}</span> },
             { key: "status", header: "Status", render: (r) => <StatusPill tone={r.status === "In Stock" ? "good" : r.status === "Low" ? "warn" : "bad"}>{r.status}</StatusPill> },
-            out && (out > 0) ? out as any : null,
-          ].filter(Boolean) as any}
+          ]}
         />
       </Panel>
     </div>
