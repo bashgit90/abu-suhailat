@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellIndexRouteImport } from './routes/_shell/index'
 import { Route as ShellSettingsRouteImport } from './routes/_shell/settings'
@@ -26,6 +27,11 @@ import { Route as ShellDeliveryRouteImport } from './routes/_shell/delivery'
 import { Route as ShellCrmRouteImport } from './routes/_shell/crm'
 import { Route as ShellAiRouteImport } from './routes/_shell/ai'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShellRoute = ShellRouteImport.update({
   id: '/_shell',
   getParentRoute: () => rootRouteImport,
@@ -108,6 +114,7 @@ const ShellAiRoute = ShellAiRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof ShellIndexRoute
+  '/login': typeof LoginRoute
   '/ai': typeof ShellAiRoute
   '/crm': typeof ShellCrmRoute
   '/delivery': typeof ShellDeliveryRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof ShellSettingsRoute
 }
 export interface FileRoutesByTo {
+  '/login': typeof LoginRoute
   '/ai': typeof ShellAiRoute
   '/crm': typeof ShellCrmRoute
   '/delivery': typeof ShellDeliveryRoute
@@ -143,6 +151,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_shell': typeof ShellRouteWithChildren
+  '/login': typeof LoginRoute
   '/_shell/ai': typeof ShellAiRoute
   '/_shell/crm': typeof ShellCrmRoute
   '/_shell/delivery': typeof ShellDeliveryRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/ai'
     | '/crm'
     | '/delivery'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/login'
     | '/ai'
     | '/crm'
     | '/delivery'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_shell'
+    | '/login'
     | '/_shell/ai'
     | '/_shell/crm'
     | '/_shell/delivery'
@@ -216,10 +228,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   ShellRoute: typeof ShellRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_shell': {
       id: '/_shell'
       path: ''
@@ -375,6 +395,7 @@ const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   ShellRoute: ShellRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
