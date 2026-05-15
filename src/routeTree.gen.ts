@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellIndexRouteImport } from './routes/_shell/index'
+import { Route as ShellProductsRouteImport } from './routes/_shell/products'
+import { Route as ShellProductionRouteImport } from './routes/_shell/production'
+import { Route as ShellInventoryRouteImport } from './routes/_shell/inventory'
 import { Route as ShellAiRouteImport } from './routes/_shell/ai'
 
 const ShellRoute = ShellRouteImport.update({
@@ -22,6 +25,21 @@ const ShellIndexRoute = ShellIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellProductsRoute = ShellProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProductionRoute = ShellProductionRouteImport.update({
+  id: '/production',
+  path: '/production',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellInventoryRoute = ShellInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellAiRoute = ShellAiRouteImport.update({
   id: '/ai',
   path: '/ai',
@@ -31,23 +49,39 @@ const ShellAiRoute = ShellAiRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof ShellIndexRoute
   '/ai': typeof ShellAiRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/production': typeof ShellProductionRoute
+  '/products': typeof ShellProductsRoute
 }
 export interface FileRoutesByTo {
   '/ai': typeof ShellAiRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/production': typeof ShellProductionRoute
+  '/products': typeof ShellProductsRoute
   '/': typeof ShellIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_shell': typeof ShellRouteWithChildren
   '/_shell/ai': typeof ShellAiRoute
+  '/_shell/inventory': typeof ShellInventoryRoute
+  '/_shell/production': typeof ShellProductionRoute
+  '/_shell/products': typeof ShellProductsRoute
   '/_shell/': typeof ShellIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ai'
+  fullPaths: '/' | '/ai' | '/inventory' | '/production' | '/products'
   fileRoutesByTo: FileRoutesByTo
-  to: '/ai' | '/'
-  id: '__root__' | '/_shell' | '/_shell/ai' | '/_shell/'
+  to: '/ai' | '/inventory' | '/production' | '/products' | '/'
+  id:
+    | '__root__'
+    | '/_shell'
+    | '/_shell/ai'
+    | '/_shell/inventory'
+    | '/_shell/production'
+    | '/_shell/products'
+    | '/_shell/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -70,6 +104,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellIndexRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/products': {
+      id: '/_shell/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ShellProductsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/production': {
+      id: '/_shell/production'
+      path: '/production'
+      fullPath: '/production'
+      preLoaderRoute: typeof ShellProductionRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/inventory': {
+      id: '/_shell/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof ShellInventoryRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/ai': {
       id: '/_shell/ai'
       path: '/ai'
@@ -82,11 +137,17 @@ declare module '@tanstack/react-router' {
 
 interface ShellRouteChildren {
   ShellAiRoute: typeof ShellAiRoute
+  ShellInventoryRoute: typeof ShellInventoryRoute
+  ShellProductionRoute: typeof ShellProductionRoute
+  ShellProductsRoute: typeof ShellProductsRoute
   ShellIndexRoute: typeof ShellIndexRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellAiRoute: ShellAiRoute,
+  ShellInventoryRoute: ShellInventoryRoute,
+  ShellProductionRoute: ShellProductionRoute,
+  ShellProductsRoute: ShellProductsRoute,
   ShellIndexRoute: ShellIndexRoute,
 }
 
@@ -98,3 +159,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
