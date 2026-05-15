@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellIndexRouteImport } from './routes/_shell/index'
+import { Route as ShellSalesRouteImport } from './routes/_shell/sales'
 import { Route as ShellProductsRouteImport } from './routes/_shell/products'
 import { Route as ShellProductionRouteImport } from './routes/_shell/production'
 import { Route as ShellInventoryRouteImport } from './routes/_shell/inventory'
@@ -23,6 +24,11 @@ const ShellRoute = ShellRouteImport.update({
 const ShellIndexRoute = ShellIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSalesRoute = ShellSalesRouteImport.update({
+  id: '/sales',
+  path: '/sales',
   getParentRoute: () => ShellRoute,
 } as any)
 const ShellProductsRoute = ShellProductsRouteImport.update({
@@ -52,12 +58,14 @@ export interface FileRoutesByFullPath {
   '/inventory': typeof ShellInventoryRoute
   '/production': typeof ShellProductionRoute
   '/products': typeof ShellProductsRoute
+  '/sales': typeof ShellSalesRoute
 }
 export interface FileRoutesByTo {
   '/ai': typeof ShellAiRoute
   '/inventory': typeof ShellInventoryRoute
   '/production': typeof ShellProductionRoute
   '/products': typeof ShellProductsRoute
+  '/sales': typeof ShellSalesRoute
   '/': typeof ShellIndexRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,14 @@ export interface FileRoutesById {
   '/_shell/inventory': typeof ShellInventoryRoute
   '/_shell/production': typeof ShellProductionRoute
   '/_shell/products': typeof ShellProductsRoute
+  '/_shell/sales': typeof ShellSalesRoute
   '/_shell/': typeof ShellIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ai' | '/inventory' | '/production' | '/products'
+  fullPaths: '/' | '/ai' | '/inventory' | '/production' | '/products' | '/sales'
   fileRoutesByTo: FileRoutesByTo
-  to: '/ai' | '/inventory' | '/production' | '/products' | '/'
+  to: '/ai' | '/inventory' | '/production' | '/products' | '/sales' | '/'
   id:
     | '__root__'
     | '/_shell'
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/_shell/inventory'
     | '/_shell/production'
     | '/_shell/products'
+    | '/_shell/sales'
     | '/_shell/'
   fileRoutesById: FileRoutesById
 }
@@ -102,6 +112,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof ShellIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/sales': {
+      id: '/_shell/sales'
+      path: '/sales'
+      fullPath: '/sales'
+      preLoaderRoute: typeof ShellSalesRouteImport
       parentRoute: typeof ShellRoute
     }
     '/_shell/products': {
@@ -140,6 +157,7 @@ interface ShellRouteChildren {
   ShellInventoryRoute: typeof ShellInventoryRoute
   ShellProductionRoute: typeof ShellProductionRoute
   ShellProductsRoute: typeof ShellProductsRoute
+  ShellSalesRoute: typeof ShellSalesRoute
   ShellIndexRoute: typeof ShellIndexRoute
 }
 
@@ -148,6 +166,7 @@ const ShellRouteChildren: ShellRouteChildren = {
   ShellInventoryRoute: ShellInventoryRoute,
   ShellProductionRoute: ShellProductionRoute,
   ShellProductsRoute: ShellProductsRoute,
+  ShellSalesRoute: ShellSalesRoute,
   ShellIndexRoute: ShellIndexRoute,
 }
 
