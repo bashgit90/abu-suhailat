@@ -1,20 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useState, createContext, useContext, type ReactNode } from "react";
 import {
-  LayoutDashboard,
-  Sparkles,
-  Pill,
-  Boxes,
-  FlaskConical,
-  Receipt,
-  Users,
-  Building2,
-  Wallet,
-  TrendingUp,
-  FileText,
-  Bell,
-  Truck,
-  Settings,
-  ShieldCheck,
+  LayoutDashboard, Sparkles, Pill, Boxes, FlaskConical, Receipt,
+  Users, Building2, Wallet, TrendingUp, FileText, Bell, Truck,
+  Settings, ShieldCheck, Menu, X,
 } from "lucide-react";
 
 const groups: { label: string; items: { to: string; icon: typeof Pill; label: string }[] }[] = [
@@ -55,10 +44,24 @@ const groups: { label: string; items: { to: string; icon: typeof Pill; label: st
   },
 ];
 
-export function Sidebar() {
+const SidebarCtx = createContext<{ open: boolean; setOpen: (v: boolean) => void }>({
+  open: false,
+  setOpen: () => {},
+});
+
+export function SidebarProvider({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return <SidebarCtx.Provider value={{ open, setOpen }}>{children}</SidebarCtx.Provider>;
+}
+
+export function useSidebarMobile() {
+  return useContext(SidebarCtx);
+}
+
+function NavBody({ onNav }: { onNav?: () => void }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <aside className="w-64 shrink-0 bg-sidebar text-sidebar-foreground flex flex-col border-r border-sidebar-border relative z-20 h-screen sticky top-0">
+    <>
       <div className="absolute inset-0 geo-watermark opacity-[0.07] pointer-events-none" />
       <div className="p-6 mb-2 relative">
         <div className="text-sidebar-primary font-display italic text-2xl tracking-tight leading-none">
@@ -68,7 +71,6 @@ export function Sidebar() {
           Enterprise ERP v4.0
         </div>
       </div>
-
       <nav className="flex-1 px-3 space-y-4 overflow-y-auto pb-4 relative">
         {groups.map((g) => (
           <div key={g.label} className="space-y-0.5">
@@ -82,6 +84,7 @@ export function Sidebar() {
                 <Link
                   key={it.to}
                   to={it.to}
+                  onClick={onNav}
                   className={`flex items-center gap-3 px-3 py-2 rounded-sm transition-colors text-sm ${
                     active
                       ? "bg-sidebar-accent text-sidebar-primary"
@@ -103,20 +106,63 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
-
       <div className="p-5 border-t border-sidebar-border relative">
         <div className="flex items-center gap-3">
           <div className="size-9 rounded bg-sidebar-primary/15 ring-1 ring-sidebar-primary/30 grid place-items-center text-sidebar-primary font-mono italic text-xs">
-            AS
+            SM
           </div>
           <div className="text-xs leading-tight">
-            <p className="font-medium">Admin Console</p>
+            <p className="font-medium">Surajo Muhammad</p>
             <p className="opacity-50 flex items-center gap-1">
               <ShieldCheck className="size-3" /> System Active
             </p>
           </div>
         </div>
       </div>
-    </aside>
+    </>
+  );
+}
+
+export function Sidebar() {
+  const { open, setOpen } = useSidebarMobile();
+  return (
+    <>
+      {/* Desktop */}
+      <aside className="w-64 shrink-0 bg-sidebar text-sidebar-foreground hidden md:flex flex-col border-r border-sidebar-border relative z-20 h-screen sticky top-0">
+        <NavBody />
+      </aside>
+      {/* Mobile drawer */}
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => setOpen(false)}
+          />
+          <aside className="fixed inset-y-0 left-0 w-72 bg-sidebar text-sidebar-foreground flex flex-col z-50 md:hidden animate-ledger-in">
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 z-10 p-1 rounded text-sidebar-foreground/70 hover:text-sidebar-primary"
+              aria-label="Close menu"
+            >
+              <X className="size-5" />
+            </button>
+            <NavBody onNav={() => setOpen(false)} />
+          </aside>
+        </>
+      )}
+    </>
+  );
+}
+
+export function SidebarToggle() {
+  const { setOpen } = useSidebarMobile();
+  return (
+    <button
+      onClick={() => setOpen(true)}
+      className="md:hidden p-2 -ml-2 rounded-sm hover:bg-muted"
+      aria-label="Open menu"
+    >
+      <Menu className="size-5" />
+    </button>
   );
 }

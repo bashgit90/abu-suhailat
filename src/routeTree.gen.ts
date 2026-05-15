@@ -9,10 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellIndexRouteImport } from './routes/_shell/index'
+import { Route as ShellSettingsRouteImport } from './routes/_shell/settings'
+import { Route as ShellSalesRouteImport } from './routes/_shell/sales'
+import { Route as ShellReportsRouteImport } from './routes/_shell/reports'
+import { Route as ShellProductsRouteImport } from './routes/_shell/products'
+import { Route as ShellProductionRouteImport } from './routes/_shell/production'
+import { Route as ShellPayrollRouteImport } from './routes/_shell/payroll'
+import { Route as ShellNotificationsRouteImport } from './routes/_shell/notifications'
+import { Route as ShellInventoryRouteImport } from './routes/_shell/inventory'
+import { Route as ShellFinanceRouteImport } from './routes/_shell/finance'
+import { Route as ShellExpensesRouteImport } from './routes/_shell/expenses'
+import { Route as ShellDistributorsRouteImport } from './routes/_shell/distributors'
+import { Route as ShellDeliveryRouteImport } from './routes/_shell/delivery'
+import { Route as ShellCrmRouteImport } from './routes/_shell/crm'
 import { Route as ShellAiRouteImport } from './routes/_shell/ai'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShellRoute = ShellRouteImport.update({
   id: '/_shell',
   getParentRoute: () => rootRouteImport,
@@ -20,6 +39,71 @@ const ShellRoute = ShellRouteImport.update({
 const ShellIndexRoute = ShellIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSettingsRoute = ShellSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSalesRoute = ShellSalesRouteImport.update({
+  id: '/sales',
+  path: '/sales',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellReportsRoute = ShellReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProductsRoute = ShellProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProductionRoute = ShellProductionRouteImport.update({
+  id: '/production',
+  path: '/production',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellPayrollRoute = ShellPayrollRouteImport.update({
+  id: '/payroll',
+  path: '/payroll',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellNotificationsRoute = ShellNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellInventoryRoute = ShellInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellFinanceRoute = ShellFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellExpensesRoute = ShellExpensesRouteImport.update({
+  id: '/expenses',
+  path: '/expenses',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDistributorsRoute = ShellDistributorsRouteImport.update({
+  id: '/distributors',
+  path: '/distributors',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDeliveryRoute = ShellDeliveryRouteImport.update({
+  id: '/delivery',
+  path: '/delivery',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellCrmRoute = ShellCrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
   getParentRoute: () => ShellRoute,
 } as any)
 const ShellAiRoute = ShellAiRouteImport.update({
@@ -30,32 +114,132 @@ const ShellAiRoute = ShellAiRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof ShellIndexRoute
+  '/login': typeof LoginRoute
   '/ai': typeof ShellAiRoute
+  '/crm': typeof ShellCrmRoute
+  '/delivery': typeof ShellDeliveryRoute
+  '/distributors': typeof ShellDistributorsRoute
+  '/expenses': typeof ShellExpensesRoute
+  '/finance': typeof ShellFinanceRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/notifications': typeof ShellNotificationsRoute
+  '/payroll': typeof ShellPayrollRoute
+  '/production': typeof ShellProductionRoute
+  '/products': typeof ShellProductsRoute
+  '/reports': typeof ShellReportsRoute
+  '/sales': typeof ShellSalesRoute
+  '/settings': typeof ShellSettingsRoute
 }
 export interface FileRoutesByTo {
+  '/login': typeof LoginRoute
   '/ai': typeof ShellAiRoute
+  '/crm': typeof ShellCrmRoute
+  '/delivery': typeof ShellDeliveryRoute
+  '/distributors': typeof ShellDistributorsRoute
+  '/expenses': typeof ShellExpensesRoute
+  '/finance': typeof ShellFinanceRoute
+  '/inventory': typeof ShellInventoryRoute
+  '/notifications': typeof ShellNotificationsRoute
+  '/payroll': typeof ShellPayrollRoute
+  '/production': typeof ShellProductionRoute
+  '/products': typeof ShellProductsRoute
+  '/reports': typeof ShellReportsRoute
+  '/sales': typeof ShellSalesRoute
+  '/settings': typeof ShellSettingsRoute
   '/': typeof ShellIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_shell': typeof ShellRouteWithChildren
+  '/login': typeof LoginRoute
   '/_shell/ai': typeof ShellAiRoute
+  '/_shell/crm': typeof ShellCrmRoute
+  '/_shell/delivery': typeof ShellDeliveryRoute
+  '/_shell/distributors': typeof ShellDistributorsRoute
+  '/_shell/expenses': typeof ShellExpensesRoute
+  '/_shell/finance': typeof ShellFinanceRoute
+  '/_shell/inventory': typeof ShellInventoryRoute
+  '/_shell/notifications': typeof ShellNotificationsRoute
+  '/_shell/payroll': typeof ShellPayrollRoute
+  '/_shell/production': typeof ShellProductionRoute
+  '/_shell/products': typeof ShellProductsRoute
+  '/_shell/reports': typeof ShellReportsRoute
+  '/_shell/sales': typeof ShellSalesRoute
+  '/_shell/settings': typeof ShellSettingsRoute
   '/_shell/': typeof ShellIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ai'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/ai'
+    | '/crm'
+    | '/delivery'
+    | '/distributors'
+    | '/expenses'
+    | '/finance'
+    | '/inventory'
+    | '/notifications'
+    | '/payroll'
+    | '/production'
+    | '/products'
+    | '/reports'
+    | '/sales'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/ai' | '/'
-  id: '__root__' | '/_shell' | '/_shell/ai' | '/_shell/'
+  to:
+    | '/login'
+    | '/ai'
+    | '/crm'
+    | '/delivery'
+    | '/distributors'
+    | '/expenses'
+    | '/finance'
+    | '/inventory'
+    | '/notifications'
+    | '/payroll'
+    | '/production'
+    | '/products'
+    | '/reports'
+    | '/sales'
+    | '/settings'
+    | '/'
+  id:
+    | '__root__'
+    | '/_shell'
+    | '/login'
+    | '/_shell/ai'
+    | '/_shell/crm'
+    | '/_shell/delivery'
+    | '/_shell/distributors'
+    | '/_shell/expenses'
+    | '/_shell/finance'
+    | '/_shell/inventory'
+    | '/_shell/notifications'
+    | '/_shell/payroll'
+    | '/_shell/production'
+    | '/_shell/products'
+    | '/_shell/reports'
+    | '/_shell/sales'
+    | '/_shell/settings'
+    | '/_shell/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   ShellRoute: typeof ShellRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_shell': {
       id: '/_shell'
       path: ''
@@ -70,6 +254,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellIndexRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/settings': {
+      id: '/_shell/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ShellSettingsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/sales': {
+      id: '/_shell/sales'
+      path: '/sales'
+      fullPath: '/sales'
+      preLoaderRoute: typeof ShellSalesRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/reports': {
+      id: '/_shell/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ShellReportsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/products': {
+      id: '/_shell/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ShellProductsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/production': {
+      id: '/_shell/production'
+      path: '/production'
+      fullPath: '/production'
+      preLoaderRoute: typeof ShellProductionRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/payroll': {
+      id: '/_shell/payroll'
+      path: '/payroll'
+      fullPath: '/payroll'
+      preLoaderRoute: typeof ShellPayrollRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/notifications': {
+      id: '/_shell/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof ShellNotificationsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/inventory': {
+      id: '/_shell/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof ShellInventoryRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/finance': {
+      id: '/_shell/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof ShellFinanceRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/expenses': {
+      id: '/_shell/expenses'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof ShellExpensesRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/distributors': {
+      id: '/_shell/distributors'
+      path: '/distributors'
+      fullPath: '/distributors'
+      preLoaderRoute: typeof ShellDistributorsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/delivery': {
+      id: '/_shell/delivery'
+      path: '/delivery'
+      fullPath: '/delivery'
+      preLoaderRoute: typeof ShellDeliveryRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/crm': {
+      id: '/_shell/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof ShellCrmRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/ai': {
       id: '/_shell/ai'
       path: '/ai'
@@ -82,11 +357,37 @@ declare module '@tanstack/react-router' {
 
 interface ShellRouteChildren {
   ShellAiRoute: typeof ShellAiRoute
+  ShellCrmRoute: typeof ShellCrmRoute
+  ShellDeliveryRoute: typeof ShellDeliveryRoute
+  ShellDistributorsRoute: typeof ShellDistributorsRoute
+  ShellExpensesRoute: typeof ShellExpensesRoute
+  ShellFinanceRoute: typeof ShellFinanceRoute
+  ShellInventoryRoute: typeof ShellInventoryRoute
+  ShellNotificationsRoute: typeof ShellNotificationsRoute
+  ShellPayrollRoute: typeof ShellPayrollRoute
+  ShellProductionRoute: typeof ShellProductionRoute
+  ShellProductsRoute: typeof ShellProductsRoute
+  ShellReportsRoute: typeof ShellReportsRoute
+  ShellSalesRoute: typeof ShellSalesRoute
+  ShellSettingsRoute: typeof ShellSettingsRoute
   ShellIndexRoute: typeof ShellIndexRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellAiRoute: ShellAiRoute,
+  ShellCrmRoute: ShellCrmRoute,
+  ShellDeliveryRoute: ShellDeliveryRoute,
+  ShellDistributorsRoute: ShellDistributorsRoute,
+  ShellExpensesRoute: ShellExpensesRoute,
+  ShellFinanceRoute: ShellFinanceRoute,
+  ShellInventoryRoute: ShellInventoryRoute,
+  ShellNotificationsRoute: ShellNotificationsRoute,
+  ShellPayrollRoute: ShellPayrollRoute,
+  ShellProductionRoute: ShellProductionRoute,
+  ShellProductsRoute: ShellProductsRoute,
+  ShellReportsRoute: ShellReportsRoute,
+  ShellSalesRoute: ShellSalesRoute,
+  ShellSettingsRoute: ShellSettingsRoute,
   ShellIndexRoute: ShellIndexRoute,
 }
 
@@ -94,7 +395,18 @@ const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   ShellRoute: ShellRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
