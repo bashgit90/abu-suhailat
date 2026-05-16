@@ -9,7 +9,11 @@ import {
   productionBatches as seedBatches,
   deliveries as seedDeliveries,
   notifications as seedNotifications,
+  stockMovements as seedMovements,
+  waybills as seedWaybills,
   type Product,
+  type StockMovement,
+  type Waybill,
 } from "./mock-data";
 
 export type Customer = (typeof seedCustomers)[number];
@@ -20,6 +24,7 @@ export type Invoice = (typeof seedInvoices)[number];
 export type Batch = (typeof seedBatches)[number];
 export type Delivery = (typeof seedDeliveries)[number];
 export type Notification = (typeof seedNotifications)[number];
+export type { StockMovement, Waybill };
 
 type State = {
   user: { name: string; role: string; greeting: string };
@@ -32,6 +37,8 @@ type State = {
   batches: Batch[];
   deliveries: Delivery[];
   notifications: Notification[];
+  movements: StockMovement[];
+  waybills: Waybill[];
 
   addProduct: (p: Product) => void;
   removeProduct: (id: string) => void;
@@ -51,6 +58,10 @@ type State = {
   removeDelivery: (id: string) => void;
   markNotificationRead: (id: number) => void;
   clearNotifications: () => void;
+  addMovement: (m: StockMovement) => void;
+  removeMovement: (id: string) => void;
+  addWaybill: (w: Waybill) => void;
+  removeWaybill: (id: string) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -64,6 +75,8 @@ export const useStore = create<State>((set) => ({
   batches: seedBatches,
   deliveries: seedDeliveries,
   notifications: seedNotifications,
+  movements: seedMovements,
+  waybills: seedWaybills,
 
   addProduct: (p) => set((s) => ({ products: [p, ...s.products] })),
   removeProduct: (id) => set((s) => ({ products: s.products.filter((x) => x.id !== id) })),
@@ -83,6 +96,27 @@ export const useStore = create<State>((set) => ({
   removeDelivery: (id) => set((s) => ({ deliveries: s.deliveries.filter((x) => x.id !== id) })),
   markNotificationRead: (id) => set((s) => ({ notifications: s.notifications.filter((n) => n.id !== id) })),
   clearNotifications: () => set({ notifications: [] }),
+  addMovement: (m) =>
+    set((s) => {
+      const products = s.products.map((p) =>
+        p.code === m.productCode
+          ? {
+              ...p,
+              stock: Math.max(0, p.stock + (m.type === "IN" ? m.qty : -m.qty)),
+              status:
+                (p.stock + (m.type === "IN" ? m.qty : -m.qty)) <= 0
+                  ? ("Out" as const)
+                  : (p.stock + (m.type === "IN" ? m.qty : -m.qty)) < p.minStock
+                  ? ("Low" as const)
+                  : ("In Stock" as const),
+            }
+          : p,
+      );
+      return { movements: [m, ...s.movements], products };
+    }),
+  removeMovement: (id) => set((s) => ({ movements: s.movements.filter((m) => m.id !== id) })),
+  addWaybill: (w) => set((s) => ({ waybills: [w, ...s.waybills] })),
+  removeWaybill: (id) => set((s) => ({ waybills: s.waybills.filter((w) => w.id !== id) })),
 }));
 
 export function genId(prefix: string) {
