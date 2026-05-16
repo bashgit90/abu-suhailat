@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellIndexRouteImport } from './routes/_shell/index'
+import { Route as ShellWaybillsRouteImport } from './routes/_shell/waybills'
 import { Route as ShellSettingsRouteImport } from './routes/_shell/settings'
 import { Route as ShellSalesRouteImport } from './routes/_shell/sales'
 import { Route as ShellReportsRouteImport } from './routes/_shell/reports'
@@ -39,6 +40,11 @@ const ShellRoute = ShellRouteImport.update({
 const ShellIndexRoute = ShellIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellWaybillsRoute = ShellWaybillsRouteImport.update({
+  id: '/waybills',
+  path: '/waybills',
   getParentRoute: () => ShellRoute,
 } as any)
 const ShellSettingsRoute = ShellSettingsRouteImport.update({
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ShellReportsRoute
   '/sales': typeof ShellSalesRoute
   '/settings': typeof ShellSettingsRoute
+  '/waybills': typeof ShellWaybillsRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/reports': typeof ShellReportsRoute
   '/sales': typeof ShellSalesRoute
   '/settings': typeof ShellSettingsRoute
+  '/waybills': typeof ShellWaybillsRoute
   '/': typeof ShellIndexRoute
 }
 export interface FileRoutesById {
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/_shell/reports': typeof ShellReportsRoute
   '/_shell/sales': typeof ShellSalesRoute
   '/_shell/settings': typeof ShellSettingsRoute
+  '/_shell/waybills': typeof ShellWaybillsRoute
   '/_shell/': typeof ShellIndexRoute
 }
 export interface FileRouteTypes {
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/sales'
     | '/settings'
+    | '/waybills'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/sales'
     | '/settings'
+    | '/waybills'
     | '/'
   id:
     | '__root__'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/_shell/reports'
     | '/_shell/sales'
     | '/_shell/settings'
+    | '/_shell/waybills'
     | '/_shell/'
   fileRoutesById: FileRoutesById
 }
@@ -252,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof ShellIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/waybills': {
+      id: '/_shell/waybills'
+      path: '/waybills'
+      fullPath: '/waybills'
+      preLoaderRoute: typeof ShellWaybillsRouteImport
       parentRoute: typeof ShellRoute
     }
     '/_shell/settings': {
@@ -370,6 +389,7 @@ interface ShellRouteChildren {
   ShellReportsRoute: typeof ShellReportsRoute
   ShellSalesRoute: typeof ShellSalesRoute
   ShellSettingsRoute: typeof ShellSettingsRoute
+  ShellWaybillsRoute: typeof ShellWaybillsRoute
   ShellIndexRoute: typeof ShellIndexRoute
 }
 
@@ -388,6 +408,7 @@ const ShellRouteChildren: ShellRouteChildren = {
   ShellReportsRoute: ShellReportsRoute,
   ShellSalesRoute: ShellSalesRoute,
   ShellSettingsRoute: ShellSettingsRoute,
+  ShellWaybillsRoute: ShellWaybillsRoute,
   ShellIndexRoute: ShellIndexRoute,
 }
 
@@ -400,3 +421,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
