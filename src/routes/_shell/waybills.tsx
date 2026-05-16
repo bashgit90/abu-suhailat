@@ -7,7 +7,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useStore } from "@/lib/store";
 import type { Waybill } from "@/lib/mock-data";
 import { Eye, Printer, Share2, X, MapPin, Phone, User, Package, Truck } from "lucide-react";
-import logoSrc from "/favicon.ico?url";
 
 export const Route = createFileRoute("/_shell/waybills")({
   head: () => ({ meta: [{ title: "Waybills — Abu Suhailat ERP" }] }),

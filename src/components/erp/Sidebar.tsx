@@ -3,7 +3,7 @@ import { useState, createContext, useContext, type ReactNode } from "react";
 import {
   LayoutDashboard, Sparkles, Pill, Boxes, FlaskConical, Receipt,
   Users, Building2, Wallet, TrendingUp, FileText, Bell, Truck,
-  Settings, ShieldCheck, Menu, X,
+  Settings, ShieldCheck, Menu, X, ClipboardList,
 } from "lucide-react";
 
 const groups: { label: string; items: { to: string; icon: typeof Pill; label: string }[] }[] = [
@@ -24,6 +24,7 @@ const groups: { label: string; items: { to: string; icon: typeof Pill; label: st
       { to: "/crm", icon: Users, label: "Customer CRM" },
       { to: "/distributors", icon: Building2, label: "Distributors" },
       { to: "/delivery", icon: Truck, label: "Delivery & Logistics" },
+      { to: "/waybills", icon: ClipboardList, label: "Waybills" },
     ],
   },
   {

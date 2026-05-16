@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Bell, Search, Plus } from "lucide-react";
-import { SidebarToggle } from "./Sidebar";
+// SidebarToggle replaced by bottom-nav on mobile
 import { useStore } from "@/lib/store";
 
 const titles: Record<string, { crumb: string; subtitle: string }> = {
@@ -19,6 +19,7 @@ const titles: Record<string, { crumb: string; subtitle: string }> = {
   "/reports": { crumb: "/ Finance / Reports", subtitle: "Exportable archives" },
   "/notifications": { crumb: "/ System / Notifications", subtitle: "Alerts & events" },
   "/settings": { crumb: "/ System / Settings", subtitle: "Workspace controls" },
+  "/waybills": { crumb: "/ Logistics / Waybills", subtitle: "Sender & receiver records" },
 };
 
 export function Topbar() {
@@ -28,7 +29,6 @@ export function Topbar() {
   return (
     <header className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-border h-16 flex items-center justify-between px-4 md:px-8 gap-2">
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <SidebarToggle />
         <span className="text-xs font-mono text-foreground/40 truncate hidden sm:inline">{t.crumb}</span>
         <div className="h-4 w-px bg-border hidden sm:block" />
         <div className="text-sm font-display italic truncate">{t.subtitle}</div>
