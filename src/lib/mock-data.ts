@@ -56,24 +56,42 @@ export type Product = {
   status: "In Stock" | "Low" | "Out";
   ingredients: string;
   usage: string;
+  image?: string;
+  emoji?: string;
 };
 
 export const products: Product[] = [
-  { id: "as-001", code: "AS-ULC-500", name: "Suhailat Ulcer Tonic 500ml", category: "Ulcer", batch: "BT-9942", stock: 412, minStock: 80, retail: 6500, wholesale: 5200, distributor: 4400, cost: 2800, produced: "2026-02-12", expires: "2027-02-12", status: "In Stock", ingredients: "Ginger root, fenugreek, honey, black seed", usage: "10ml twice daily after meals." },
-  { id: "as-002", code: "AS-TYP-250", name: "Typhoid Shield Bitter 250ml", category: "Typhoid", batch: "BT-9931", stock: 56, minStock: 80, retail: 4800, wholesale: 3900, distributor: 3300, cost: 2100, produced: "2026-01-08", expires: "2026-12-08", status: "Low", ingredients: "Neem, dogonyaro, lime, garlic", usage: "15ml morning and evening for 7 days." },
-  { id: "as-003", code: "AS-COL-100", name: "Cold & Flu Herbal Capsules", category: "Cold", batch: "BT-9928", stock: 980, minStock: 200, retail: 3500, wholesale: 2900, distributor: 2400, cost: 1300, produced: "2026-03-01", expires: "2027-09-01", status: "In Stock", ingredients: "Eucalyptus, ginger, turmeric, vitamin C", usage: "2 capsules thrice daily." },
-  { id: "as-004", code: "AS-PIL-200", name: "Pile Relief Cream 200g", category: "Pile", batch: "BT-9920", stock: 14, minStock: 50, retail: 5200, wholesale: 4200, distributor: 3500, cost: 1900, produced: "2025-12-19", expires: "2027-06-19", status: "Low", ingredients: "Shea butter, witch hazel, aloe vera", usage: "Apply twice daily after cleansing." },
-  { id: "as-005", code: "AS-WEL-300", name: "Wellness Daily Boost 300ml", category: "Wellness", batch: "BT-9945", stock: 720, minStock: 150, retail: 4200, wholesale: 3500, distributor: 2900, cost: 1600, produced: "2026-03-08", expires: "2027-09-08", status: "In Stock", ingredients: "Moringa, baobab, hibiscus, honey", usage: "20ml each morning." },
-  { id: "as-006", code: "AS-IMM-060", name: "Immune Booster Gold 60caps", category: "Wellness", batch: "BT-9947", stock: 0, minStock: 60, retail: 7200, wholesale: 5900, distributor: 4900, cost: 2700, produced: "2025-11-04", expires: "2027-05-04", status: "Out", ingredients: "Black seed oil, ginger, turmeric, zinc", usage: "1 capsule morning and night." },
+  { id: "as-001", code: "AS-ULC-500", name: "Ulcurex Herbal Capsule", category: "Ulcer", batch: "BT-9942", stock: 412, minStock: 80, retail: 6500, wholesale: 5200, distributor: 4400, cost: 2800, produced: "2026-02-12", expires: "2027-02-12", status: "In Stock", ingredients: "Ginger root, fenugreek, honey, black seed", usage: "10ml twice daily after meals.", emoji: "🌿" },
+  { id: "as-002", code: "AS-TYP-250", name: "Typhokare Syrup 200ml", category: "Typhoid", batch: "BT-9931", stock: 56, minStock: 80, retail: 4800, wholesale: 3900, distributor: 3300, cost: 2100, produced: "2026-01-08", expires: "2026-12-08", status: "Low", ingredients: "Neem, dogonyaro, lime, garlic", usage: "15ml morning and evening for 7 days.", emoji: "🧪" },
+  { id: "as-003", code: "AS-COL-100", name: "HerbCold Plus Tablets", category: "Cold", batch: "BT-9928", stock: 980, minStock: 200, retail: 3500, wholesale: 2900, distributor: 2400, cost: 1300, produced: "2026-03-01", expires: "2027-09-01", status: "In Stock", ingredients: "Eucalyptus, ginger, turmeric, vitamin C", usage: "2 capsules thrice daily.", emoji: "💊" },
+  { id: "as-004", code: "AS-PIL-200", name: "PileCare Herbal Oil", category: "Pile", batch: "BT-9920", stock: 14, minStock: 50, retail: 5200, wholesale: 4200, distributor: 3500, cost: 1900, produced: "2025-12-19", expires: "2027-06-19", status: "Low", ingredients: "Shea butter, witch hazel, aloe vera", usage: "Apply twice daily after cleansing.", emoji: "🫙" },
+  { id: "as-005", code: "AS-WEL-300", name: "Wellness Daily Boost 300ml", category: "Wellness", batch: "BT-9945", stock: 720, minStock: 150, retail: 4200, wholesale: 3500, distributor: 2900, cost: 1600, produced: "2026-03-08", expires: "2027-09-08", status: "In Stock", ingredients: "Moringa, baobab, hibiscus, honey", usage: "20ml each morning.", emoji: "🍯" },
+  { id: "as-006", code: "AS-IMM-060", name: "Livox Detox Tablets", category: "Wellness", batch: "BT-9947", stock: 0, minStock: 60, retail: 7200, wholesale: 5900, distributor: 4900, cost: 2700, produced: "2025-11-04", expires: "2027-05-04", status: "Out", ingredients: "Black seed oil, ginger, turmeric, zinc", usage: "1 capsule morning and night.", emoji: "🌱" },
 ];
 
 export const recentInvoices = [
-  { no: "INV-8821", customer: "Heritage Pharma LLC", type: "Wholesale", amount: 425000, status: "Paid", date: "2026-05-12" },
-  { no: "INV-8820", customer: "Aisha Bello", type: "Retail", amount: 19500, status: "Paid", date: "2026-05-12" },
-  { no: "INV-8819", customer: "Oasis Natural Health", type: "Distributor", amount: 189000, status: "Pending", date: "2026-05-11" },
-  { no: "INV-8818", customer: "Mallam Yusuf Tanko", type: "Retail", amount: 8400, status: "Partial", date: "2026-05-11" },
-  { no: "INV-8817", customer: "Al-Hayat Wholesale", type: "Wholesale", amount: 612000, status: "Paid", date: "2026-05-10" },
-  { no: "INV-8816", customer: "Sani Distributors", type: "Distributor", amount: 248000, status: "Overdue", date: "2026-05-08" },
+  { no: "INV-2026-000128", customer: "Mohammad Arif Khan", phone: "+966 55 123 4567", address: "Al-Madina Street, Riyadh, Saudi Arabia – 12611", type: "Wholesale", amount: 1810.27, status: "Pending", date: "2026-05-26", items: [
+    { product: "Ulcurex Herbal Capsule", desc: "100% Natural • 60 Caps", category: "Ulcer", qty: 3, unit: "Box", price: 120, discount: 5 },
+    { product: "Typhokare Syrup", desc: "Herbal Formula • 200ml", category: "Typhoid", qty: 5, unit: "Bottle", price: 85, discount: 0 },
+    { product: "HerbCold Plus Tablets", desc: "Relief from Cold & Cough", category: "Cold", qty: 10, unit: "Strip", price: 25, discount: 10 },
+    { product: "PileCare Herbal Oil", desc: "Ayurvedic Pain Relief", category: "Pile", qty: 2, unit: "Bottle", price: 150, discount: 5 },
+    { product: "Livox Detox Tablets", desc: "Liver Support Formula", category: "Ulcer", qty: 4, unit: "Box", price: 95, discount: 0 },
+  ] },
+  { no: "INV-2026-000127", customer: "Heritage Pharma LLC", phone: "+234 802 999 1100", address: "Lagos, Nigeria", type: "Wholesale", amount: 425.00, status: "Paid", date: "2026-05-12", items: [
+    { product: "Ulcurex Herbal Capsule", desc: "60 Caps", category: "Ulcer", qty: 5, unit: "Box", price: 85, discount: 0 },
+  ] },
+  { no: "INV-2026-000126", customer: "Aisha Bello", phone: "+234 803 121 9842", address: "Kano, Nigeria", type: "Retail", amount: 195.00, status: "Paid", date: "2026-05-12", items: [
+    { product: "HerbCold Plus Tablets", desc: "Cold & Cough", category: "Cold", qty: 3, unit: "Strip", price: 65, discount: 0 },
+  ] },
+  { no: "INV-2026-000125", customer: "Oasis Natural Health", phone: "+234 814 200 7733", address: "Abuja, Nigeria", type: "Distributor", amount: 189.00, status: "Pending", date: "2026-05-11", items: [
+    { product: "Wellness Daily Boost", desc: "300ml", category: "Wellness", qty: 4, unit: "Bottle", price: 47.25, discount: 0 },
+  ] },
+  { no: "INV-2026-000124", customer: "Al-Hayat Wholesale", phone: "+234 803 800 2211", address: "Sokoto, Nigeria", type: "Wholesale", amount: 612.00, status: "Paid", date: "2026-05-10", items: [
+    { product: "PileCare Herbal Oil", desc: "Pain Relief", category: "Pile", qty: 6, unit: "Bottle", price: 102, discount: 0 },
+  ] },
+  { no: "INV-2026-000123", customer: "Sani Distributors", phone: "+234 805 411 9000", address: "Maiduguri, Nigeria", type: "Distributor", amount: 248.00, status: "Overdue", date: "2026-05-08", items: [
+    { product: "Typhokare Syrup", desc: "200ml", category: "Typhoid", qty: 8, unit: "Bottle", price: 31, discount: 0 },
+  ] },
 ];
 
 export const productionBatches = [
@@ -100,11 +118,11 @@ export const distributors = [
 ];
 
 export const staff = [
-  { id: "E-001", name: "Mustafa Abu", role: "Production Lead", salary: 280000, attendance: 96, bonus: 25000, deductions: 0, bank: "Zenith • 0123456789" },
-  { id: "E-002", name: "Sarah Jenkins", role: "Quality Analyst", salary: 240000, attendance: 92, bonus: 12000, deductions: 4000, bank: "GTB • 0211223344" },
-  { id: "E-003", name: "Aliyu Garba", role: "Packaging Officer", salary: 165000, attendance: 88, bonus: 6000, deductions: 0, bank: "UBA • 2050099887" },
-  { id: "E-004", name: "Zainab Hassan", role: "Lab Technician", salary: 195000, attendance: 99, bonus: 15000, deductions: 0, bank: "Access • 0099887766" },
-  { id: "E-005", name: "Khadija Musa", role: "HR Manager", salary: 320000, attendance: 100, bonus: 30000, deductions: 0, bank: "Zenith • 0123456712" },
+  { id: "E-001", name: "Mustafa Abu", role: "Production Lead", salary: 280000, attendance: 96, bonus: 25000, deductions: 0, bank: "Zenith • 0123456789", phone: "+234 803 100 2211", email: "mustafa@abusuhailat.com", joined: "2023-04-12", avatar: "https://i.pravatar.cc/200?img=12" },
+  { id: "E-002", name: "Sarah Jenkins", role: "Quality Analyst", salary: 240000, attendance: 92, bonus: 12000, deductions: 4000, bank: "GTB • 0211223344", phone: "+234 802 411 8800", email: "sarah@abusuhailat.com", joined: "2024-01-09", avatar: "https://i.pravatar.cc/200?img=47" },
+  { id: "E-003", name: "Aliyu Garba", role: "Packaging Officer", salary: 165000, attendance: 88, bonus: 6000, deductions: 0, bank: "UBA • 2050099887", phone: "+234 814 220 1133", email: "aliyu@abusuhailat.com", joined: "2024-08-21", avatar: "https://i.pravatar.cc/200?img=33" },
+  { id: "E-004", name: "Zainab Hassan", role: "Lab Technician", salary: 195000, attendance: 99, bonus: 15000, deductions: 0, bank: "Access • 0099887766", phone: "+234 806 555 4423", email: "zainab@abusuhailat.com", joined: "2023-11-02", avatar: "https://i.pravatar.cc/200?img=45" },
+  { id: "E-005", name: "Khadija Musa", role: "HR Manager", salary: 320000, attendance: 100, bonus: 30000, deductions: 0, bank: "Zenith • 0123456712", phone: "+234 803 909 2200", email: "khadija@abusuhailat.com", joined: "2022-05-30", avatar: "https://i.pravatar.cc/200?img=49" },
 ];
 
 export const expenses = [
@@ -131,6 +149,56 @@ export const deliveries = [
   { id: "DLV-2240", invoice: "INV-8819", agent: "Femi Adeola", destination: "Abuja — Garki", status: "In Transit", eta: "Tomorrow" },
   { id: "DLV-2239", invoice: "INV-8821", agent: "Tunde Akin", destination: "Lagos — Ikeja", status: "Dispatched", eta: "2 days" },
   { id: "DLV-2238", invoice: "INV-8816", agent: "Bashir Lawal", destination: "Maiduguri", status: "Pending", eta: "—" },
+];
+
+export type StockMovement = {
+  id: string;
+  productCode: string;
+  productName: string;
+  type: "IN" | "OUT";
+  qty: number;
+  reason: string;
+  note?: string;
+  date: string;
+  by: string;
+};
+
+export const stockMovements: StockMovement[] = [
+  { id: "MV-1042", productCode: "AS-ULC-500", productName: "Ulcurex Herbal Capsule", type: "IN", qty: 200, reason: "Restock", date: "2026-05-14", by: "Mustafa Abu", note: "Batch BT-9942 received" },
+  { id: "MV-1041", productCode: "AS-COL-100", productName: "HerbCold Plus Tablets", type: "OUT", qty: 60, reason: "Sale", date: "2026-05-14", by: "Sales", note: "INV-2026-000126" },
+  { id: "MV-1040", productCode: "AS-PIL-200", productName: "PileCare Herbal Oil", type: "OUT", qty: 24, reason: "Sale", date: "2026-05-13", by: "Sales", note: "INV-2026-000124" },
+  { id: "MV-1039", productCode: "AS-TYP-250", productName: "Typhokare Syrup", type: "IN", qty: 120, reason: "Restock", date: "2026-05-12", by: "Aliyu Garba" },
+  { id: "MV-1038", productCode: "AS-WEL-300", productName: "Wellness Daily Boost", type: "OUT", qty: 36, reason: "Sale", date: "2026-05-11", by: "Sales", note: "INV-2026-000125" },
+];
+
+export type Waybill = {
+  id: string;
+  date: string;
+  status: "Pending" | "Dispatched" | "In Transit" | "Delivered";
+  senderName: string;
+  senderPhone: string;
+  senderAddress: string;
+  receiverName: string;
+  receiverPhone: string;
+  receiverAddress: string;
+  description: string;
+  cartons: number;
+  invoice?: string;
+};
+
+export const waybills: Waybill[] = [
+  {
+    id: "WB-2026-0042", date: "2026-05-26", status: "In Transit",
+    senderName: "Abu Suhailat HQ", senderPhone: "+966 55 123 4567", senderAddress: "Riyadh",
+    receiverName: "Mohammad Arif Khan", receiverPhone: "+966 55 123 4567", receiverAddress: "Riyadh",
+    description: "5 cartons", cartons: 5, invoice: "INV-2026-000128",
+  },
+  {
+    id: "WB-2026-0041", date: "2026-05-24", status: "Delivered",
+    senderName: "Abu Suhailat HQ", senderPhone: "+966 55 123 4567", senderAddress: "Riyadh",
+    receiverName: "Heritage Pharma LLC", receiverPhone: "+234 802 999 1100", receiverAddress: "Lagos, Nigeria",
+    description: "12 cartons", cartons: 12, invoice: "INV-2026-000127",
+  },
 ];
 
 export const aiPrompts = [
